@@ -1,0 +1,14 @@
+sfCombinePlusJs:
+  url:  /js-min/*
+  param:
+    module: sfCombinePlus
+    action: js
+
+sfCombinePlusCss:
+  url:  /css-min/*
+  param:
+    module: sfCombinePlus
+    action: css
+  
+sfCombinePlus:
+  url:  /:module/:action/*
