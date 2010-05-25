@@ -1,1 +1,33 @@
-todo...
+--------------------------------------------------------------------------------
+sfCombinePlus
+--------------------------------------------------------------------------------
+
+sfCombinePlus is a fork of sfCombine written by Alexandre Mogère and
+François Zaninotto. See: http://www.symfony-project.org/plugins/sfCombinePlugin
+
+The purpose of this plugin is to provide the means to auto minify and cache
+Javascript and CSS files that are used in your web application. The aim of this
+plugin is to provide the flexibility that can be achieved without using such a
+utility with the performance boost that can be achieved by using a auto
+minifying utility.
+
+This fork changes the following things in sfCombine. Please read:
+http://www.symfony-project.org/plugins/sfCombinePlugin/1_1_0?tab=plugin_readme
+- Javascript and CSS can be put into assigned groups to load particular groups
+  of files in seperate script loading. This is so that global scripts can be on
+  each page and extra javascripts can be in their own group which will allow
+  global files to be cached by the client.
+- Different groups can be output in different places, so all but one group
+  could be output in the head and that last group just before the body
+- Database usage is no longer required, files can be accessed by a base64 name
+  or a human readable file string
+- Allows limited parsing of php javascript/css files via a include, can have
+  a query string.
+- Handles external urls
+- Works with the symfony option system for assets
+- CSS files now have relative URL's altered to the new combined path
+- Moves CSS @charset and @import declarations to the top of a combined file for
+  correct syntax
+- Only doctrine is supported when database is used
+
+

@@ -1,6 +1,19 @@
 <?php
+/**
+ * A class of utility methods for handling URLs in sfCombinePlus
+ *
+ * @package     sfCombinePlus
+ * @subpackage  sfCombinePlusUrl
+ * @author      Kevin Dew <kev@dewsolutions.co.uk>
+ */
 class sfCombinePlusUrl
 {
+  /**
+   * Get the url for a collection of files
+   *
+   * @param   array $files
+   * @return  string
+   */
   static public function getUrlString($files)
   {
     switch(sfConfig::get('app_sfCombinePlusPlugin_url_type', 'key')) {
@@ -23,21 +36,45 @@ class sfCombinePlusUrl
     return $string;
   }
 
-  static public function getFileString($files, $separator = ' ')
+  /**
+   * Return the array of files into a string that can be used in a URL
+   *
+   * @param  array  $files      Array of file names
+   * @param  string $seperator  (Optional) Default ' '
+   * @return string
+   */
+  static public function getFileString(array $files, $separator = ' ')
   {
     return implode($separator, array_map('urlencode', $files));
   }
 
+  /**
+   * Take a file string and convert it into an array of files
+   *
+   * @param  string $fileString
+   * @param  string $seperator  (Optional) Default ' '
+   * @return array
+   */
   static public function getFiles($fileString, $separator = ' ')
   {
     return array_map('urldecode', explode(' ', $fileString));
   }
 
-  static public function getBase64($files, $separator = ' ')
+  /**
+   * Return a base64 encoded list of files
+   *
+   * @see getFileString
+   */
+  static public function getBase64(array $files, $separator = ' ')
   {
     return base64_encode(self::getFileString($files, $separator));
   }
 
+  /**
+   * Take a base64 string and convert it into an array of files
+   *
+   * @see getFiles
+   */
   static public function getFilesByBase64($base64, $separator = ' ')
   {
     $string = false;
@@ -51,8 +88,14 @@ class sfCombinePlusUrl
     );
   }
 
-  // based on sfCombine _get_key helper
-  static public function getKey($files, $separator = ' ')
+  /**
+   * Return a hash which refers to an entry in the db describing the files
+   *
+   * Based off the sfCombine _getKey method
+   *
+   * @see getFileString
+   */
+  static public function getKey(array $files, $separator = ' ')
   {
     $content = self::getBase64($files, $separator);
     $key = sha1($content);
@@ -88,6 +131,11 @@ class sfCombinePlusUrl
     return $key;
   }
 
+  /**
+   * Take a db hash and convert it into an array of files
+   *
+   * @see getFiles
+   */
   static public function getFilesByKey($key, $separator = ' ')
   {
     $base64 = false;

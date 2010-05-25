@@ -1,7 +1,26 @@
 <?php
+/**
+ * Utility class of static methods for sfCombinePlus
+ *
+ * @package     sfCombinePlus
+ * @subpackage  sfCombinePlusUtility
+ * @author      Kevin Dew <kev@dewsolutions.co.uk>
+ */
 class sfCombinePlusUtility
 {
-  static public function combinableFile($file, $doNotCombine = array())
+  /**
+   * Check whether or not a file is combinable. Reasons for files not being
+   * combinable are, a url with a protocol (likely to be a different server),
+   * a file path in full or everything before the question mark is in the
+   * $doNotCombine array, or if the file does not exist (could be a dynamic
+   * file)
+   *
+   * @param   string  $file         File name
+   * @param   array   $doNotCombine (Optional) Array of files not to combine.
+   *                                Default empty array.
+   * @return  bool
+   */
+  static public function combinableFile($file, array $doNotCombine = array())
   {
     // check for a remote or file we've specified not to combine
     if (strpos($file, '://')
@@ -27,6 +46,12 @@ class sfCombinePlusUtility
     return true;
   }
 
+  /**
+   * Get the path to a file as long as the file exists.
+   *
+   * @param   string        $file
+   * @return  string|false  False if file doesn't exist
+   */
   static public function getFilePath($file)
   {
     $paths = array(
@@ -43,11 +68,23 @@ class sfCombinePlusUtility
     return false;
   }
 
-  static public function skipAsset($value, $doNotCombine)
+  /**
+   * Whether or not this is a file that should be skipped
+   *
+   * @param   string  $file
+   * @param   array   $doNotCombine
+   * @return  bool
+   */
+  static public function skipAsset($file, array $doNotCombine = array())
   {
-    return in_array($value, $doNotCombine);
+    return in_array($file, $doNotCombine);
   }
 
+  /**
+   * Get the cache directory for sfCombinePlus
+   *
+   * @return string
+   */
   static public function getCacheDir()
   {
     return sfConfig::get('sf_cache_dir') . '/'
@@ -57,6 +94,12 @@ class sfCombinePlusUtility
                          );
   }
 
+  /**
+   * Send GZip headers if possible
+   *
+   * @author  Alexandre Mogère
+   * @return  void
+   */
   static public function setGzip()
   {
     // gzip compression
@@ -66,6 +109,12 @@ class sfCombinePlusUtility
     }
   }
 
+  /**
+   * Send cache headers if possible.
+   *
+   * @author  Alexandre Mogère
+   * @param sfResponse $response
+   */
   static public function setCacheHeaders($response)
   {
 
@@ -80,6 +129,12 @@ class sfCombinePlusUtility
     }
   }
 
+  /**
+   * Check whether we can send gzip
+   *
+   * @author  Alexandre Mogère
+   * @return  bool
+   */
   static protected function _checkGzipFail()
   {
     $userAgent = $_SERVER['HTTP_USER_AGENT'];

@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Add a javascript file for grouping
+ *
+ * @param   string $js            The javascript filename
+ * @param   string $group         (Optional) The name of the group to be added
+ *                                to. Default empty string.
+ * @param   bool   $doNotCombine  (Optional) Whether to blacklist this file from
+ *                                combining. Default false
+ * @param   string $position      (Optional) @see sfWebResponse::addJavascript
+ * @param   array  $options       (Optional) @see sfWebResponse::addJavascript
+ * @return  void
+ */
 function use_javascript_grouped(
   $js,
   $group = '',
@@ -21,6 +33,11 @@ function use_javascript_grouped(
   }
 }
 
+/**
+ * Output the combined javascripts
+ *
+ * @see get_combined_javascripts
+ */
 function include_combined_javascripts(
   $groups = null,
   $groupType = sfCombinePlusManager::GROUP_INCLUDE,
@@ -32,13 +49,26 @@ function include_combined_javascripts(
 }
 
 /**
- * Returns <script> tags for all javascripts configured in view.yml or added to the response object.
+ * Get the combined Javascripts in script links. Can get all groups or a
+ * selection. Calling this method will stop symfony automatically inserting
+ * scripts
  *
- * You can use this helper to decide the location of javascripts in pages.
- * By default, if you don't call this helper, symfony will automatically include javascripts before </head>.
- * Calling this helper disables this behavior.
  *
- * @return string <script> tags
+ * @param   mixed $groupsUse        (Optional) A string or array of groups to
+ *                                  include or exclude. Null for this to be
+ *                                  ignored. Default null.
+ * @param   int   $groupsUseType    (Optional) The type of grouping either
+ *                                  sfCombinePlusManager::GROUP_INCLUDE or
+ *                                  sfCombinePlusManager::GROUP_EXCLUDE.
+ *                                  These dictate whether the group(s) in
+ *                                  the previous argument should be marked
+ *                                  as used or every group marked as used.
+ *                                  Default sfCombinePlusManager::GROUP_INCLUDE
+ * @param   bool  $onlyUnusedGroups (Optional) Only use unused groups. Default
+ *                                  true.
+ * @param   bool  $markGroupsUsed   (Optional) Mark the groups that are used
+ *                                  as used. Default true.
+ * @return  string
  */
 function get_combined_javascripts(
   $groups = null,
@@ -99,7 +129,9 @@ function get_combined_javascripts(
   return $html;
 }
 
-
+/**
+ * @see use_javascript_grouped
+ */
 function use_stylesheet_grouped(
   $css,
   $group = '',
@@ -121,6 +153,9 @@ function use_stylesheet_grouped(
   }
 }
 
+/**
+ * @see include_combined_javascripts
+ */
 function include_combined_stylesheets(
   $groups = null,
   $groupType = sfCombinePlusManager::GROUP_INCLUDE,
@@ -132,13 +167,7 @@ function include_combined_stylesheets(
 }
 
 /**
- * Returns <link> tags with the url toward all stylesheets configured in view.yml or added to the response object.
- *
- * You can use this helper to decide the location of stylesheets in pages.
- * By default, if you don't call this helper, symfony will automatically include stylesheets before </head>.
- * Calling this helper disables this behavior.
- *
- * @return string <link> tags
+ * @see get_combined_javascripts
  */
 function get_combined_stylesheets(
   $groups = null,

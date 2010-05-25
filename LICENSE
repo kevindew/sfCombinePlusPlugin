@@ -4,7 +4,7 @@ Copyright (c) 2008 MaGénération
 
 This plugin has been developed by Kevin Dew and is licensed under the MIT license (see below).
 
-It is based on the sfCombine Plugin by Alexandre Mogère: <a href=""></a>
+It is based on the sfCombine Plugin by Alexandre Mogère: <a href="http://www.symfony-project.org/plugins/sfCombinePlugin"></a>
 
 It includes the <a href="http://code.google.com/p/minify">Minify library</a> which is licensed under <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a>
 Copyright (c) 2008 Ryan Grove <ryan@wonko.com>
