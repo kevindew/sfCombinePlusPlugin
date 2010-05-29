@@ -12,13 +12,14 @@ default:
     gzip:           true          # allow PHP gzipping of the combined JavaScript and CSS files to reduce bandwidth usage
     url_type:       key           # can be key, files, or base64
     js:
-      combine: false               # whether or not to perform combining actions
+      combine: true               # whether or not to perform combining actions
       combine_skip: ~             # these files will not be combined (necessary when js code is based on js file name)
       include: true               # whether to allow the including of files
       include_suffixes:           # suffixes of files that can be included
           - .php
       include_skip: ~             # files that should be skipped on includes
       minify:       true          # process js files to shrink them
+      minify_method: [sfCombinePlusMinifierJsMin, minify]
       minify_skip_suffixes:       # files with this suffix will not be minified
           - .min.js
       minify_skip: ~              # these files will not be minified (useful when code is already minified)
@@ -34,6 +35,7 @@ default:
           - .php
       include_skip: ~             # files that should be skipped on includes
       minify:       true          # process js files to shrink them
+      minify_method: [sfCombinePlusMinifierMinifyCss, minify]
       minify_skip_suffixes:       # files with this suffix should not be minified
           - .min.css
       minify_skip: ~              # these files will not be minified (useful when code is already minified)
